@@ -1,6 +1,49 @@
-$def with (location)
+$def with (location, name, northwall, eastwall, southwall, westwall)
 
-<em>Hello</em>, world!
-<br>
+<html>
 
-You are at: $location
+<head>
+	<title>A-mazing Game</title>
+</head>
+
+<body>
+	<em>Hello</em>, $name!
+	<br>
+
+	You are at: $location
+	<br>
+	<br>You see walls here:
+	<br>
+	$if northwall:
+		North<br>
+	$if eastwall:
+		East<br>
+	$if southwall:
+		South<br>
+	$if westwall:
+		West<br>
+
+	$code:
+		northPath = "/start?name="+name+"&direction=NORTH"
+		eastPath = "/start?name="+name+"&direction=EAST"
+		southPath = "/start?name="+name+"&direction=SOUTH"
+		westPath = "/start?name="+name+"&direction=WEST"
+	
+	<br>
+		
+	$if not northwall:
+		<a href=$northPath>Go North</a>
+
+	$if not eastwall:
+		<a href=$eastPath>Go East</a>
+
+	$if not southwall:
+		<a href=$southPath>Go South</a>
+
+	$if not westwall:
+		<a href=$westPath>Go West</a>
+
+</body>
+
+</html>
+
