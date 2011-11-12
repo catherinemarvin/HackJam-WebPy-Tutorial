@@ -14,6 +14,9 @@ class initMaze:
 	def __init__(self):
 		self.room1 = Room( (0,0) , {"NORTH": True , "SOUTH": True, "EAST": False, "WEST": True} ) 
 		self.room2 = Room( (1,0) , {"NORTH": True , "SOUTH": True, "EAST": True, "WEST": False} )
+		self.maze = Maze()
+		self.maze.addRoom(self.room1)
+		self.maze.addRoom(self.room2)
 
 	def GET(self):
 		#constructing the maze
@@ -35,34 +38,13 @@ class initMaze:
 			return render.maze(location)
 		
 	def MakeMaze(self, name):
-		#room1 = Room( (0,0) , {"NORTH": True , "SOUTH": True, "EAST": False, "WEST": True} )
-		#room2 = Room( (1,0) , {"NORTH": True , "SOUTH": True, "EAST": True, "WEST": False} )
-		self.maze = Maze()
-		self.maze.addRoom(self.room1)
-		self.maze.addRoom(self.room2)
-
 		you = Player(name, self.room1, self.maze)
-		print you.name
 		self.maze.addPlayer(you)
-
-		for playerName in self.maze.players:
-			print self.maze.players[playerName]
-		for roomName in self.maze.rooms:
-			print self.maze.rooms[roomName]
-		#return "Done"
-
-		
 		return self.maze
 
 	def Move(self, name, direction):
-		self.maze = Maze()
-		self.maze.addRoom(self.room1)
-		self.maze.addRoom(self.room2)
-
 		location = ( int(web.cookies().get('x')) , int(web.cookies().get('y')) )
 		you = Player(name, self.maze.getRoom(location) , self.maze )
-		
-
 		you.Move(direction)
 		self.maze.addPlayer(you)
 		return self.maze
